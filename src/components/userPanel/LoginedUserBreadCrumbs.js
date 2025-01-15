@@ -24,9 +24,10 @@ const BreadCrumbLink = styled(Link)(({ theme, active }) => ({
     transition: 'color 0.7s ease, background 0.7s ease',
     cursor: 'pointer',
     '&:hover': {
+        color: 'transparent',
         background: 'linear-gradient(45deg, rgb(238, 9, 121), rgb(255, 106, 0))',
-        WebkitBackgroundClip: active ? 'text' : 'none',
-        WebkitTextFillColor: active ? 'transparent' : 'inherit',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
         textDecoration: 'none',
     },
     '&::after': {
@@ -41,9 +42,7 @@ const BreadCrumbLink = styled(Link)(({ theme, active }) => ({
         transition: 'transform 0.3s ease-in-out',
         transformOrigin: 'left',
     },
-    '&:hover::after': {
-        transform: 'scaleX(1)',
-    },
+
 }));
 
 const LoginedUserBreadCrumbs = () => {

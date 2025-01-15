@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Typography, Link } from "@mui/material";
-import ButtonBasic from "../ui/buttons/ButtonBasic";
-import { ReactComponent as WavingHand } from '../../assets/images/icons/wavingHand.svg';
+import HelloButton from "../ui/buttons/HelloButton";
 import { ReactComponent as OnlinePoint } from '../../assets/images/icons/online_point.svg';
 
 const ProfilesCard = ({ photo, name, age, country }) => {
 
     return (
-        <Link href='#'
+        <Link href='/ProfilesUsersInfo'
             sx={{
                 '&:hover': {
                     transform: 'scale(0.99)'
@@ -22,10 +21,12 @@ const ProfilesCard = ({ photo, name, age, country }) => {
                 <Box>
                     <img src={photo} alt="user avatar" />
                 </Box>
-                <Box sx={{ position: 'absolute', width: '100%', bottom: '0' }}>
-                    <ButtonBasic
-                        name={'Попривествовать'}
-                        img={<WavingHand />} />
+                <Box sx={{
+                    position: 'absolute',
+                    width: '100%',
+                    bottom: '0'
+                }}>
+                    <HelloButton />
                 </Box>
                 <Box sx={{
                     position: 'absolute',

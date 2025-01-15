@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const ButtonBasic = ({ type, name, img, onClick }) => {
+const ButtonBasic = ({ type, name, img, onClick, padding }) => {
 
     return (
         <Button
@@ -10,9 +10,10 @@ const ButtonBasic = ({ type, name, img, onClick }) => {
             variant="contained"
             color="primary"
             sx={{
-                padding: { xs: '12px', sm: '15px' },
+                padding: { xs: '12px', sm: padding },
                 marginTop: '5px',
                 borderRadius: '40px',
+                fontWeight: '400',
                 width: '100%',
                 maxWidth: '380px',
                 minWidth: '200px',

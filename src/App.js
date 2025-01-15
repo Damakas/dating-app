@@ -11,6 +11,7 @@ import { store } from "./store";
 import RegisterForm from "./components/registerForm/RegisterForm";
 import UserProfileMenu from "./components/userProfileMenu/UserProfileMenu";
 import DatingProfiles from "./components/datingProfiles/DatingProfiles";
+import ProfilesUsersInfo from "./components/profilesUsersInfo/ProfilesUsersInfo";
 
 
 const theme = createTheme({
@@ -54,6 +55,7 @@ function App() {
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/profileMenu" element={<UserProfileMenu />} />
               <Route path="/datingProfiles" element={<DatingProfiles />} />
+              <Route path="/ProfilesUsersInfo" element={<ProfilesUsersInfo />} />
             </Routes>
             <Footer />
           </Box>
