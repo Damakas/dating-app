@@ -6,9 +6,11 @@ import CountryWithFlag from './CountryWithFlag';
 import { Box, Typography, Container } from "@mui/material";
 
 const DatingProfiles = () => {
-    const usersTopDating = useSelector((state) => state.usersProfiles.users.topDating);
-    const lookingForBoyfriend = useSelector((state) => state.usersProfiles.users.lookingForBoyfriend);
-    const lookingForGirlfriend = useSelector((state) => state.usersProfiles.users.lookingForGirlfriend);
+    const users = useSelector((state) => state.usersProfiles.users);
+
+    const topDatingUsers = users.filter(user => user.category === 'topDating');
+    const lookingForBoyfriendUsers = users.filter(user => user.category === 'lookingForBoyfriend');
+    const lookingForGirlfriendUsers = users.filter(user => user.category === 'lookingForGirlfriend');
 
     return (
         <Container maxWidth='xl'
@@ -39,9 +41,10 @@ const DatingProfiles = () => {
                     gap: '20px',
                     overflowX: 'auto',
                 }}>
-                    {usersTopDating.map((user) => (
+                    {topDatingUsers.map((user) => (
                         <ProfilesCard
                             key={user.id}
+                            id={user.id}
                             photo={user.photo}
                             name={user.name}
                             country={<CountryWithFlag country={user.country} />}
@@ -70,9 +73,10 @@ const DatingProfiles = () => {
                     justifyContent: 'flex-start',
                     overflowX: 'auto',
                 }}>
-                    {lookingForBoyfriend.map((user) => (
+                    {lookingForBoyfriendUsers.map((user) => (
                         <ProfilesCard
                             key={user.id}
+                            id={user.id}
                             photo={user.photo}
                             name={user.name}
                             country={<CountryWithFlag country={user.country} />}
@@ -101,9 +105,10 @@ const DatingProfiles = () => {
                     justifyContent: 'flex-start',
                     overflowX: 'auto',
                 }}>
-                    {lookingForGirlfriend.map((user) => (
+                    {lookingForGirlfriendUsers.map((user) => (
                         <ProfilesCard
                             key={user.id}
+                            id={user.id}
                             photo={user.photo}
                             name={user.name}
                             country={<CountryWithFlag country={user.country} />}

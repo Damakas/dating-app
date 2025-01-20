@@ -1,30 +1,60 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Link } from "@mui/material";
 import HelloButton from "../ui/buttons/HelloButton";
 import { ReactComponent as OnlinePoint } from '../../assets/images/icons/online_point.svg';
 
-const ProfilesCard = ({ photo, name, age, country }) => {
+const ProfilesCard = ({ photo, name, age, country, id }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/user/${id}`);
+    }
 
     return (
-        <Link href='/ProfilesUsersInfo'
+        <Link
+            onClick={handleClick}
             sx={{
+                cursor: 'pointer',
                 '&:hover': {
-                    transform: 'scale(0.99)'
+                    transform: 'scale(0.99)',
                 }
-            }}>
+            }}
+        >
             <Box
                 sx={{
                     width: "220px",
+                    height: "350px",
                     borderRadius: '30px',
-                    position: "relative"
-                }}>
-                <Box>
-                    <img src={photo} alt="user avatar" />
+                    position: "relative",
+                    overflow: "hidden"
+                }}
+            >
+                <Box
+                    sx={{
+                        width: "100%",
+                        maxWidth: "220px",
+                        height: "100%",
+                        maxHeight: "350px",
+                        borderRadius: "30px",
+                        overflow: "hidden",
+                    }}
+                >
+                    <img
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                            borderRadius: "30px",
+                        }}
+                        src={photo}
+                        alt="user avatar"
+                    />
                 </Box>
                 <Box sx={{
                     position: 'absolute',
                     width: '100%',
-                    bottom: '0'
+                    bottom: '0',
                 }}>
                     <HelloButton />
                 </Box>
@@ -35,7 +65,7 @@ const ProfilesCard = ({ photo, name, age, country }) => {
                     gap: '1px',
                     bottom: '80px',
                     left: '25px',
-                    color: 'white'
+                    color: 'white',
                 }}>
                     <Box sx={{
                         display: 'flex',
@@ -51,7 +81,8 @@ const ProfilesCard = ({ photo, name, age, country }) => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '5px',
-                        }}>
+                        }}
+                    >
                         {country}
                     </Typography>
                 </Box>

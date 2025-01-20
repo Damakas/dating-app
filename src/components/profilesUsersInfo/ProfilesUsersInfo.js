@@ -1,268 +1,227 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSwipeable } from 'react-swipeable';
 
-import avatarUser from '../../assets/avatar-examp.png';
 import additionalExmp from '../../assets/addi_exemp.png';
+import { ReactComponent as OnlinePoint } from '../../assets/images/icons/online_point.svg';
 
 import LikeButton from "../ui/buttons/LikeButton";
 import HelloButton from "../ui/buttons/HelloButton";
 import BookMarkBtn from "../ui/buttons/BookMarkBtn";
+import NextButton from "../ui/buttons/NextButton";
+import PrevButton from "../ui/buttons/PrevButton";
 
+import ProfilesUsersInfoField from "./ProfilesUserInfoField";
 
-import { Box, Typography, Container, Grid } from "@mui/material";
+import { Box, Typography, Container, CircularProgress } from "@mui/material";
 
 const ProfilesUsersInfo = () => {
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const users = useSelector((state) => state.usersProfiles.users);
+    const user = useSelector((state) =>
+        state.usersProfiles.users.find((user) => user.id === id)
+    );
+
+    useEffect(() => {
+        if (!user && users.length > 0) {
+            navigate(`/datingProfiles`);
+        }
+    }, [user, users, navigate]);
+
+    const handleNext = () => {
+        const currentCategory = user.category;
+        const filteredUsers = users.filter((user) => user.category === currentCategory);
+        const currentIndex = filteredUsers.findIndex((user) => user.id === id);
+        const nextUser = filteredUsers[(currentIndex + 1) % filteredUsers.length];
+        navigate(`/user/${nextUser.id}`);
+    };
+
+    const handlePrev = () => {
+        const currentCategory = user.category;
+        const filteredUsers = users.filter((user) => user.category === currentCategory);
+        const currentIndex = filteredUsers.findIndex((user) => user.id === id);
+        const prevUser = filteredUsers[(currentIndex - 1 + filteredUsers.length) % filteredUsers.length];
+        navigate(`/user/${prevUser.id}`);
+    };
+
+
+    const handlers = useSwipeable({
+        onSwipedLeft: handleNext,
+        onSwipedRight: handlePrev,
+        trackMouse: true,
+    });
+
+    if (!user) {
+        return (
+            <Container sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '30px',
+            }}>
+                <CircularProgress />
+            </Container>
+        );
+    }
 
     return (
         <Container sx={{
             display: 'flex',
+            justifyContent: 'center',
             marginTop: '30px',
-            gap: '50px',
-        }}>
-
-            {/* Main Photo  */}
-
-            <Box>
-                <Box sx={{ position: 'relative' }}>
-                    <img src={avatarUser} alt="avatar user" />
-
-                    <Box sx={{ position: 'absolute', bottom: '30px', left: '160px' }}>
-                        <LikeButton />
-                    </Box>
-                    <Box sx={{ position: 'absolute', top: '30px', left: '30px' }}>
-                        <BookMarkBtn />
-                    </Box>
-                </Box>
-
-
-                {/* Additional Photos */}
-
-                <Box display={'flex'} gap={'8px'}>
-                    <Box
-                        component='img'
-                        src={additionalExmp}
-                        alt="exemp img"
-                        sx={{
-                            maxWidth: '90px',
-                            maxHeight: '90px',
-                            borderRadius: '20px',
-                        }}
-                    />
-                    <Box
-                        component='img'
-                        src={additionalExmp}
-                        alt="exemp img"
-                        sx={{
-                            maxWidth: '90px',
-                            maxHeight: '90px',
-                            borderRadius: '20px',
-                        }}
-                    />
-                    <Box
-                        component='img'
-                        src={additionalExmp}
-                        alt="exemp img"
-                        sx={{
-                            maxWidth: '90px',
-                            maxHeight: '90px',
-                            borderRadius: '20px',
-                        }}
-                    />
-                    <Box
-                        component='img'
-                        src={additionalExmp}
-                        alt="exemp img"
-                        sx={{
-                            maxWidth: '90px',
-                            maxHeight: '90px',
-                            borderRadius: '20px',
-                        }}
-                    />
-                </Box>
+            gap: '30px',
+        }} {...handlers}>
+            <Box sx={{ alignSelf: 'center', display: { xs: 'none', md: 'block' } }}>
+                <PrevButton onClick={() => handlePrev()} />
             </Box>
-
-            {/* Info About User */}
-
             <Box sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                maxWidth: '550px',
-                textWrap: 'nowrap',
-                color: 'white',
+                flexDirection: { xs: 'column', lg: 'row' },
+                alignItems: { xs: 'center', lg: 'normal' },
+                justifyContent: 'center',
+                gap: { lg: '50px', xs: '30px' },
             }}>
 
-                {/* Info About User Header */}
+                <Box>
+                    {/* Main Photo  */}
+                    <Box sx={{
+                        position: 'relative',
+                        width: "100%",
+                        minWidth: "380px",
+                        height: "100%",
+                        maxHeight: "500px",
+                        borderRadius: "10%",
+                        overflow: 'hidden',
+                    }}>
+                        <img
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                            }}
+                            src={user.photo}
+                            alt="avatar user"
+                        />
+                        <Box sx={{ position: 'absolute', bottom: '30px', left: '160px' }}>
+                            <LikeButton />
+                        </Box>
+                        <Box sx={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '20px'
+                        }}>
+                            <BookMarkBtn />
+                        </Box>
+                    </Box>
 
+                    {/* Additional Photos */}
+                    <Box sx={{
+                        display: 'flex',
+                        gap: '8px',
+                        marginTop: 2,
+                        justifyContent: 'center',
+                        overflowX: { xs: 'auto', sm: 'visible' },
+                        padding: { xs: '10px', sm: 0 },
+                        '&::-webkit-scrollbar': {
+                            display: 'none'
+                        }
+                    }}>
+                        {[1, 2, 3, 4].map((index) => (
+                            <Box
+                                key={index}
+                                component='img'
+                                src={user.photo}
+                                alt="exemp img"
+                                sx={{
+                                    minWidth: { xs: '60px', xxs: '70px', sm: '90px' },
+                                    height: { xs: '80px', sm: '90px' },
+                                    borderRadius: '20px',
+                                    flexShrink: 0,
+                                    objectFit: 'cover',
+                                }}
+                            />
+                        ))}
+                    </Box>
+                </Box>
+
+                {/* Info About User */}
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    marginBottom: '30px',
-                    maxWidth: '250px',
-                    width: '100%',
+                    justifyContent: 'space-between',
+                    alignItems: { xs: 'center', lg: 'normal' },
+                    maxWidth: '550px',
+                    textWrap: 'nowrap',
+                    color: 'white',
                 }}>
-                    <Typography variant="h4" color="white">
-                        Виктор 22
-                    </Typography>
-                    <HelloButton />
-                </Box>
 
-                {/* Info about User Table Middle */}
+                    {/* Info About User Header */}
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: { xs: 'center', lg: 'normal' },
+                        gap: '10px',
+                        marginBottom: '30px',
+                        maxWidth: '250px',
+                        width: '100%',
+                        position: 'relative',
+                    }}>
+                        <Box display={'flex'} gap={'10px'}>
+                            <Typography variant="h4" color="white">
+                                {user.name} {user.age}
+                            </Typography>
+                            <OnlinePoint />
+                        </Box>
+                        <HelloButton />
+                    </Box>
 
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                    marginBottom: '20px',
-                }}>
-                    <Box>
-                        <Typography variant="h6">Ставка</Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                        }}
-                    />
-                    <Typography variant="h6">15 654 руб</Typography>
-                </Box>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                }}>
-                    <Box>
-                        <Typography sx={{
-                            fontSize: '18px',
-                            color: 'white'
-                        }}>Рост</Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                            width: '100%'
-                        }}
-                    />
-                    <Typography>186см</Typography>
-                </Box>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                }}>
-                    <Box>
-                        <Typography sx={{
-                            fontSize: '18px',
-                            color: 'white'
-                        }}>Вес</Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                            width: '100%'
-                        }}
-                    />
-                    <Typography>80 кг</Typography>
-                </Box>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                }}>
-                    <Box>
-                        <Typography sx={{
-                            fontSize: '18px',
-                            color: 'white'
-                        }}>Цвет глаз</Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                            width: '100%'
-                        }}
-                    />
-                    <Typography>Карие</Typography>
-                </Box>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                }}>
-                    <Box>
-                        <Typography sx={{
-                            fontSize: '18px',
-                            color: 'white'
-                        }}>
-                            Цвет волос
+                    {/* Info about User Table Middle */}
+                    <ProfilesUsersInfoField
+                        label={'Рост'}
+                        user={user.height} />
+                    <ProfilesUsersInfoField
+                        label={'Вес'}
+                        user={user.weight} />
+                    <ProfilesUsersInfoField
+                        label={'Цвет глаз'}
+                        user={user.eyeColor} />
+                    <ProfilesUsersInfoField
+                        label={'Цвет волос'}
+                        user={user.hairColor} />
+                    <ProfilesUsersInfoField
+                        label={'Цель знакомства'}
+                        user={user.goal} />
+
+                    {/* About me */}
+
+                    <Box marginTop={3} sx={{
+                        width: { xs: '300px', md: '550px' },
+                        justifyContent: 'center',
+                    }}>
+                        <Typography variant="h6">
+                            О себе
+                        </Typography>
+
+                        <Typography sx={{ textWrap: 'wrap', marginBottom: '1rem' }} component={'p'}>
+                            {user.about}
                         </Typography>
                     </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                            width: '100%'
-                        }}
-                    />
-                    <Typography>Светлые</Typography>
-                </Box>
-                <Box sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '20px',
-                    width: '550px',
-                }}>
-                    <Box>
-                        <Typography sx={{
-                            fontSize: '18px',
-                            color: 'white'
-                        }}>
-                            Цель знакмоства
-                        </Typography>
-                    </Box>
-                    <Box
-                        sx={{
-                            flexGrow: 1,
-                            borderBottom: '2px dashed #4A2956',
-                            width: '100%'
-                        }}
-                    />
-                    <Typography>Пока не знаю</Typography>
-                </Box>
 
-                {/* About me */}
+                    {/* Registration Date */}
 
-                <Box marginTop={3}>
-                    <Typography variant="h6">
-                        О себе
+                    <Typography sx={{
+                        marginTop: '20px',
+                        color: '#8B5D9A',
+                        fontSize: '14px'
+                    }}>
+                        На сайте с 21.08.2021
                     </Typography>
 
-                    <Typography sx={{ textWrap: 'wrap', marginBottom: '1rem' }} component={'p'}>
-                        Задача организации, в особенности же сложившаяся структура организации представляет собой интересный эксперимент проверки модели развития.
-                    </Typography>
-
-                    <Typography sx={{ textWrap: 'wrap' }} component={'p'}>
-                        Задача организации, в особенности же постоянный количественный рост и сфера нашей активности играет важную роль в формировании позиций, занимаемых участниками в отношении поставленных задач.
-                    </Typography>
                 </Box>
-
-                {/* Registration Date */}
-
-
-                <Typography sx={{
-                    marginTop: '20px',
-                    color: '#8B5D9A',
-                    fontSize: '14px'
-                }}>
-                    На сайте с 21.08.2021
-                </Typography>
-
+            </Box>
+            <Box sx={{ alignSelf: 'center', display: { xs: 'none', md: 'block' } }}>
+                <NextButton onClick={() => handleNext()} />
             </Box>
         </Container>
     );

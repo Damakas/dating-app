@@ -32,6 +32,16 @@ const theme = createTheme({
       primary: '#8B5D9A',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+      xxs: 320,
+    },
+  },
 });
 
 function App() {
@@ -55,7 +65,7 @@ function App() {
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/profileMenu" element={<UserProfileMenu />} />
               <Route path="/datingProfiles" element={<DatingProfiles />} />
-              <Route path="/ProfilesUsersInfo" element={<ProfilesUsersInfo />} />
+              <Route path="/user/:id" element={<ProfilesUsersInfo />} />
             </Routes>
             <Footer />
           </Box>

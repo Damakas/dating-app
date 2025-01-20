@@ -6,7 +6,6 @@ import UserAvatar from "../userBtnProfile/UserBtnProfile";
 import LoginedUserBreadCrumbs from "./LoginedUserBreadCrumbs";
 
 const UserPanel = () => {
-
     return (
         <Box sx={{ display: 'flex', flexDirection: { xs: 'row-reverse', lg: 'row' }, gap: { xs: '30px', sm: '50px' }, alignItems: 'center' }}>
             <Box sx={{ marginRight: { sm: '0', md: '50px', lg: '100px', } }}>
