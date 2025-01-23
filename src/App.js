@@ -12,6 +12,7 @@ import RegisterForm from "./components/registerForm/RegisterForm";
 import UserProfileMenu from "./components/userProfileMenu/UserProfileMenu";
 import DatingProfiles from "./components/datingProfiles/DatingProfiles";
 import ProfilesUsersInfo from "./components/profilesUsersInfo/ProfilesUsersInfo";
+import ChatWindow from "./components/chat/ChatWindow";
 
 
 const theme = createTheme({
@@ -66,6 +67,7 @@ function App() {
               <Route path="/profileMenu" element={<UserProfileMenu />} />
               <Route path="/datingProfiles" element={<DatingProfiles />} />
               <Route path="/user/:id" element={<ProfilesUsersInfo />} />
+              <Route path="/messages" element={<ChatWindow />} />
             </Routes>
             <Footer />
           </Box>

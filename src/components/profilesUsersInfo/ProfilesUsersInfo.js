@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSwipeable } from 'react-swipeable';
 
-import additionalExmp from '../../assets/addi_exemp.png';
+
 import { ReactComponent as OnlinePoint } from '../../assets/images/icons/online_point.svg';
 
 import LikeButton from "../ui/buttons/LikeButton";
@@ -134,7 +134,7 @@ const ProfilesUsersInfo = () => {
                                 src={user.photo}
                                 alt="exemp img"
                                 sx={{
-                                    minWidth: { xs: '60px', xxs: '70px', sm: '90px' },
+                                    minWidth: { xxs: '70px', sm: '90px' },
                                     height: { xs: '80px', sm: '90px' },
                                     borderRadius: '20px',
                                     flexShrink: 0,
@@ -157,6 +157,7 @@ const ProfilesUsersInfo = () => {
                 }}>
 
                     {/* Info About User Header */}
+
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',

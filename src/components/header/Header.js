@@ -1,4 +1,4 @@
-import { Box, Typography, Link } from "@mui/material";
+import { Box, Typography, Link, Container } from "@mui/material";
 import React from "react";
 import RegionSelect from "../regionSelect/RegionSelect";
 import RegistrationPanel from "./RegistrationPanel";
