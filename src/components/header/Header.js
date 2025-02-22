@@ -1,4 +1,4 @@
-import { Box, Typography, Link, Container } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import React from "react";
 import RegionSelect from "../regionSelect/RegionSelect";
 import RegistrationPanel from "./RegistrationPanel";
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../loginForm/authSlice";
 
 const Header = () => {
+
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
     return (

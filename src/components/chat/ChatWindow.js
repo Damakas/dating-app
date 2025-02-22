@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Typography, List, ListItem, Container, IconButton, useTheme, useMediaQuery } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import { setShowChat, setSelectedUser, } from "./chatSlice";
+
 import Message from "./Message";
 import InputBox from "./InputBox";
 
@@ -11,21 +14,26 @@ const ChatWindow = () => {
     const users = useSelector((state) => state.usersProfiles.users);
     const currentUserId = useSelector((state) => state.auth.userId)
 
-    const [selectedUser, setSelectedUser] = useState(users[0]?.id || null);
-    const [messages, setMessages] = useState([]);
-    const [showChat, setShowChat] = useState(false);
+
+    const showChat = useSelector((state) => state.chat.showChat)
+    const selectedUser = useSelector((state) => state.chat.selectedUser);
+    const messagesEndRef = useRef(null);
+
+    const dispatch = useDispatch();
 
     const handleUserSelect = (userId) => {
-        setSelectedUser(userId);
+        dispatch(setSelectedUser(userId));
         if (isMobile) {
-            setShowChat(true);
+            dispatch(setShowChat(true));
         }
     };
 
     const handleBackToUsers = () => {
-        setShowChat(false);
+        dispatch(setShowChat(false));
     };
 
+
+    const [messages, setMessages] = useState([]);
     const handleSendMessage = (text) => {
         if (text.trim() && selectedUser) {
             const user = users.find((u) => u.id === selectedUser);
@@ -44,7 +52,6 @@ const ChatWindow = () => {
         }
     };
 
-    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         if (messagesEndRef.current) {
@@ -191,8 +198,8 @@ const ChatWindow = () => {
                             flexDirection: 'column',
                             gap: '20px',
                             padding: { xs: '12px', md: '16px' },
-                            overflowY: "auto", // Прокрутка включена
-                            maxHeight: '60vh', // Ограничение высоты
+                            overflowY: "auto",
+                            maxHeight: '60vh',
                         }}
                     >
                         <Box
@@ -223,6 +230,7 @@ const ChatWindow = () => {
                                 },
                             }}
                         >
+
                             {(messages[selectedUser] || []).map((msg) => (
                                 <Message
                                     key={msg.id}
@@ -236,7 +244,10 @@ const ChatWindow = () => {
                     </Box>
 
                     {/* Input Box */}
-                    <Box sx={{ padding: { xs: '0 10px', md: 0 } }}>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}>
                         <InputBox onSendMessage={handleSendMessage} />
                     </Box>
                 </Box>

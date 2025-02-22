@@ -248,17 +248,7 @@ const usersProfiles = createSlice({
                 state.users[category] = [user]
             }
         },
-        // nextUser(state) {
-        //     const currentIndex = state.users.topDating.findIndex((user) => user.id === state.currentUserId);
-        //     const nextIndex = (currentIndex + 1) % state.users.topDating.length;
-        //     state.currentUserId = state.users.topDating[nextIndex].id;
-        // },
 
-        // prevUser(state) {
-        //     const currentIndex = state.users.topDating.findIndex((user) => user.id === state.currentUserId);
-        //     const prevIndex = (currentIndex - 1 + state.users.topDating.length) % state.users.topDating.length;
-        //     state.currentUserId = state.users.topDating[prevIndex].id;
-        // },
     },
 });
 

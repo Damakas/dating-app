@@ -11,6 +11,7 @@ const MainPage = () => {
         <Box>
             <Box
                 sx={{
+
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -53,7 +54,7 @@ const MainPage = () => {
                 }}
             />
 
-            <Box sx={{ flex: 1, position: 'relative', zIndex: 1 }}>
+            <Box sx={{ flex: 1, position: 'relative', zIndex: 1, }}>
                 <LoginForm />
                 <PassRecoveryModal />
             </Box>

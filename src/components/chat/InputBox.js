@@ -15,13 +15,13 @@ const InputBox = ({ onSendMessage }) => {
             sx={{
                 display: 'flex',
                 alignItems: 'center',
-                maxWidth: { xs: '430px', md: 'none' },
+                maxWidth: { xs: '430px', sm: 'none' },
                 width: '100%',
                 backgroundColor: '#42204E',
                 position: 'relative',
                 border: 'none',
                 borderRadius: '50px',
-                marginBottom: '50px',
+
             }}
         >
             <TextField

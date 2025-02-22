@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
 
-const ButtonBasic = ({ type, name, img, onClick, padding }) => {
+
+
+const ButtonBasic = ({ type, name, img, onClick, padding, isDisabled }) => {
 
     return (
         <Button
@@ -9,6 +11,7 @@ const ButtonBasic = ({ type, name, img, onClick, padding }) => {
             onClick={onClick}
             variant="contained"
             color="primary"
+            disabled={isDisabled}
             sx={{
                 padding: { xs: '12px', sm: padding },
                 marginTop: '5px',
@@ -24,6 +27,10 @@ const ButtonBasic = ({ type, name, img, onClick, padding }) => {
                     background: 'linear-gradient(45deg, #FF6A00, #EE0979)',
                 },
                 fontSize: { xs: '14px', sm: '16px' },
+                '&.Mui-disabled': {
+                    background: '#3B2143',
+                    color: '#694B73',
+                },
             }}
         >
             {name}

@@ -45,7 +45,7 @@ const BreadCrumbLink = styled(Link)(({ theme, active }) => ({
 
 }));
 
-const LoginedUserBreadCrumbs = () => {
+const BreadcrumbsPanel = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -62,7 +62,7 @@ const LoginedUserBreadCrumbs = () => {
     const breadcrumbs = [
         { label: 'Анкеты', href: '/datingProfiles' },
         { label: 'Сообщения', href: '/messages' },
-        { label: 'Подписки', href: '/subscriptions' },
+        { label: 'Подписки', href: '/tariffs' },
     ];
 
     return (
@@ -76,6 +76,7 @@ const LoginedUserBreadCrumbs = () => {
                     onClick={handleDrawerToggle}
                 >
                     {/* <MenuIcon /> */}
+
                     <HamburgerIcon />
                 </IconButton>
                 <Drawer
@@ -140,4 +141,4 @@ const LoginedUserBreadCrumbs = () => {
     );
 };
 
-export default LoginedUserBreadCrumbs;
+export default BreadcrumbsPanel;

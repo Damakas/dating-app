@@ -9,11 +9,16 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 import RegisterForm from "./components/registerForm/RegisterForm";
-import UserProfileMenu from "./components/userProfileMenu/UserProfileMenu";
+// import UserProfileMenu from "./components/userProfile/UserProfileMenu";
+import UserProfile from './components/userProfile/UserProfile';
+import UserProfileFavorite from "./components/userProfile/UserProfileFavorite";
+import UserProfileWallet from "./components/userProfile/UserProfileWallet";
+
 import DatingProfiles from "./components/datingProfiles/DatingProfiles";
 import ProfilesUsersInfo from "./components/profilesUsersInfo/ProfilesUsersInfo";
 import ChatWindow from "./components/chat/ChatWindow";
-
+import Tariffs from "./components/tariffs/Tariffs";
+import UserProfileForm from "./components/userProfile/UserProfileForm";
 
 const theme = createTheme({
   typography: {
@@ -61,14 +66,28 @@ function App() {
               zIndex: 1,
             }}>
             <Header />
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/register" element={<RegisterForm />} />
-              <Route path="/profileMenu" element={<UserProfileMenu />} />
-              <Route path="/datingProfiles" element={<DatingProfiles />} />
-              <Route path="/user/:id" element={<ProfilesUsersInfo />} />
-              <Route path="/messages" element={<ChatWindow />} />
-            </Routes>
+            <Box
+              component="main"
+              sx={{
+                flex: '1 0 auto',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/register" element={<RegisterForm />} />
+                <Route element={<UserProfile />}>
+                  <Route path="/profileMenu" element={<UserProfileForm />} />
+                  <Route path="/favorite" element={<UserProfileFavorite />} />
+                  <Route path="/personalWallet" element={<UserProfileWallet />} />
+                </Route>
+                <Route path="/datingProfiles" element={<DatingProfiles />} />
+                <Route path="/user/:id" element={<ProfilesUsersInfo />} />
+                <Route path="/messages" element={<ChatWindow />} />
+                <Route path="/tariffs" element={<Tariffs />} />
+              </Routes>
+            </Box>
             <Footer />
           </Box>
         </ThemeProvider>

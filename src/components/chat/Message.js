@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 
 
 const Message = ({ text, avatar, isCurrentUser }) => {
+
     return (
         <Box
             sx={{
@@ -27,20 +28,24 @@ const Message = ({ text, avatar, isCurrentUser }) => {
                 }}
             />
 
+
             {/* Message Text */}
 
             <Box
                 sx={{
                     maxWidth: "60%",
                     padding: "10px",
-                    borderRadius: "16px",
-                    backgroundColor: isCurrentUser ? "#6A1B9A" : "#333",
+                    borderRadius: isCurrentUser ? "20px 0 20px 20px" : '0 20px 20px 20px',
+                    backgroundImage: isCurrentUser
+                        ? "linear-gradient(45deg, rgb(5, 117, 230), rgb(2, 27, 121))"
+                        : "linear-gradient(45deg, rgb(236, 0, 140), rgb(252, 103, 103))",
                     color: isCurrentUser ? "white" : "white",
                     wordWrap: "break-word",
                 }}
             >
                 <Typography variant="body1">{text}</Typography>
             </Box>
+
         </Box>
     );
 };

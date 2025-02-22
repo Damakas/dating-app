@@ -20,8 +20,9 @@ const Footer = () => {
                 alignItems: 'center',
                 gap: { xs: '20px', sm: '20px', md: '30px', lg: '90px' },
                 background: 'transparent',
-                margin: { xs: '100px 0 0', sm: '150px 0 0' },
+                marginTop: '20px',
                 width: '100%',
+
             }}
         >
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: "20px", justifyContent: 'center' }}>

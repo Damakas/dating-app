@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Box, Typography } from '@mui/material';
 
@@ -15,9 +16,13 @@ import ValidationSchema from '../../utils/ValidationSchema';
 const LoginForm = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = () => {
-        dispatch(login(''));
+        dispatch(login());
+        setTimeout(() => {
+            navigate('/datingProfiles')
+        }, 0)
     }
 
     return (
@@ -28,6 +33,7 @@ const LoginForm = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 marginTop: { xs: '50px', sm: '130px', md: '170px' },
+
                 color: 'white',
                 textAlign: 'center',
                 padding: { xs: '20px', md: '0' }
@@ -93,7 +99,8 @@ const LoginForm = () => {
                             <ButtonBasic
                                 type={'submit'}
                                 name={'Войти'}
-                                onClick={handleLogin} />
+                                onClick={handleLogin}
+                                padding={'20px'} />
 
                             {/* Recovery password Button */}
 

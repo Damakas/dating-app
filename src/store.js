@@ -5,6 +5,7 @@ import passRecoverReducer from './components/passRecoveryModal/passRecoverySlice
 import notificationReducer from './components/ui/notificationBell/notificationsSlice';
 import authReducer from './components/loginForm/authSlice';
 import usersProfiles from './usersProfiles/usersProfiles';
+import chatReducer from './components/chat/chatSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         modal: passRecoverReducer,
         notifications: notificationReducer,
         auth: authReducer,
-        usersProfiles: usersProfiles
+        usersProfiles: usersProfiles,
+        chat: chatReducer
     },
 });
